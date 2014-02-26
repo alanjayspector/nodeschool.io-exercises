@@ -72,5 +72,8 @@
         console.log('server bound on:' + port);
     });
 
-})();
 
+    var chatServer = require('./lib/chat_server');
+    chatServer.listen(server);
+
+})();

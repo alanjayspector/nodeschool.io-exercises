@@ -31,6 +31,13 @@
     };
 
 
+    function handleMessageBroadcasting(socket) {
+        socket.on('message', function (message) {
+              socket.broadcast.to(message.room).emit('message', {
+                      text: nickNames[socket.id] + ': ' + message.text
+              }); });
+    }
+
     function assignGuestName(socket, guestNumber, nickNames, namesUsed) {
         var name = 'Guest' + guestNumber;
         nickNames[socket.id] = name;
@@ -110,9 +117,9 @@
         });
     }
 
-    function handleClientDisconnection(socket) {
+    function handleClientDisconnection(socket, nickNames, namesUsed ) {
         socket.on('disconnect', function() {
-            var nameIndex = namesUsed.indexof(nickNames[socket.id]);
+            var nameIndex = namesUsed.indexOf(nickNames[socket.id]);
             delete namesUsed[nameIndex];
             delete nickNames[socket.id];
         });

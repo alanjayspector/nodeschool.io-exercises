@@ -18,6 +18,7 @@ Chat.prototype.changeRoom = function(room) {
 
 
 Chat.prototype.processCommand = function(command) {
+  console.log("oh crap",command);
     var words = command.split(' ');
     command = words[0].substring(1, words[0].length)
         .toLowerCase();

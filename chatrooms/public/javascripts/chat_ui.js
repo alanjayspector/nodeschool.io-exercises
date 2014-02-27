@@ -10,7 +10,6 @@ function divSystemContentElement(message) {
 function processUserInput(chatApp, socket) {
     var message = $('#send-message').val();
     var systemMessage;
-    console.log(message);
 
     if (message.charAt(0) === '/') {
         systemMessage = chatApp.processCommand(message);

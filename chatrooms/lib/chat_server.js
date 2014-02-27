@@ -20,6 +20,8 @@
 
             handleRoomJoining(socket);
 
+            handleNameChangeAttempts(socket, nickNames, namesUsed);
+
             socket.on('rooms', function() {
                 socket.emit('rooms', io.sockets.manager.rooms);
             });
@@ -80,7 +82,8 @@
     }
 
     function handleNameChangeAttempts(socket, nickNames, namesUsed) {
-        socket.on('nameAttempt', function(name) {
+        socket.on('nameAttempt', function(data) {
+            var name = data.name;
             if (name.indexOf('Guest') === 0) {
                 socket.emit('nameResult', {
                     success: false,

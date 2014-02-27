@@ -16,9 +16,14 @@ Chat.prototype.changeRoom = function(room) {
     });
 };
 
+Chat.prototype.nameAttempt = function(name) {
+  this.socket.emit('nameAttempt', {
+        name: name
+  });
+};
+
 
 Chat.prototype.processCommand = function(command) {
-  console.log("oh crap",command);
     var words = command.split(' ');
     command = words[0].substring(1, words[0].length)
         .toLowerCase();
@@ -33,9 +38,8 @@ Chat.prototype.processCommand = function(command) {
         case 'nick':
             words.shift();
             var name = words.join(' ');
-            this.socket.emit('nameAttempt', name);
+            this.nameAttempt(name);
             break;
-
         default:
             message = 'Unrecognized command.';
             break;

@@ -56,7 +56,7 @@ $(document).ready(function() {
         }
 
         $('#room-list div').click(function() {
-            chatApp.processCommand('/join ' + $(this.text()));
+            chatApp.processCommand('/join ' + $(this).text()); 
             $('#send-message').focus();
         });
     });

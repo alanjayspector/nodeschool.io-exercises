@@ -22,6 +22,7 @@
 
             handleNameChangeAttempts(socket, nickNames, namesUsed);
 
+
             socket.on('rooms', function() {
                 socket.emit('rooms', io.sockets.manager.rooms);
             });
@@ -29,6 +30,9 @@
             handleClientDisconnection(socket, nickNames, namesUsed);
 
         });
+
+
+
 
     };
 
@@ -124,6 +128,9 @@
     function handleClientDisconnection(socket, nickNames, namesUsed) {
         socket.on('disconnect', function() {
             var nameIndex = namesUsed.indexOf(nickNames[socket.id]);
+            socket.broadcast.to(currentRoom[socket.id]).emit("message", {
+                'text': nickNames[socket.id] + ' just dropped the mike and walked away.'
+            });
             delete namesUsed[nameIndex];
             delete nickNames[socket.id];
         });

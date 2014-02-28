@@ -56,11 +56,9 @@ $(document).ready(function() {
             }
         });
 
-        socket.on('message', function(data) {
-            if ( $('#room').text() === data.room ) {
-              $('#messages').append(divEscapedContentElement(data.text));
+        socket.on('message', function(message) {
+              $('#messages').append(divEscapedContentElement(message.text));
               $('#messages').scrollTop($('#messages').prop('scrollHeight'));
-            }
         });
 
    

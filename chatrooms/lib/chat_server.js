@@ -34,11 +34,11 @@
 
 
     function handleMessageBroadcasting(socket, nickNames) {
-        socket.on('message', function (message) {
-              socket.broadcast.emit('message', {
-                      text: nickNames[socket.id] + ': ' + message.text,
-                      room:message.room
-              }); });
+        socket.on('message', function(message) {
+            socket.broadcast.to(message.room).emit('message', {
+                'text': nickNames[socket.id] + ': ' + message.text
+            });
+        });
     }
 
     function assignGuestName(socket, guestNumber, nickNames, namesUsed) {
@@ -121,7 +121,7 @@
         });
     }
 
-    function handleClientDisconnection(socket, nickNames, namesUsed ) {
+    function handleClientDisconnection(socket, nickNames, namesUsed) {
         socket.on('disconnect', function() {
             var nameIndex = namesUsed.indexOf(nickNames[socket.id]);
             delete namesUsed[nameIndex];
